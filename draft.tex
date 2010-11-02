@@ -31,9 +31,9 @@ Les offres et les demandes sont annoncées indépendamment. En effet, cette solu
 
 Un n\oe ud annonce en priorité ses propres messages qu'il a à offrir. Dans une certaine limite, il annonce également les messages que ses voisins offrent de leur c\^oté.
 
-Les messages offerts par les voisins sont pondérés avec la distance au n\oe ud courant, en nombre de sauts. En effet, les messages offerts par le n\oe ud courant sont pondérés à $0$, tandis que les messages offerts par les voisins voient leur pondération d'origine incrémentée de $1$.
+Les messages offerts par les voisins sont pondérés avec la distance au n\oe ud courant, en nombre de sauts. En effet, les messages offerts par le n\oe ud courant sont pondérés à 0, tandis que les messages offerts par les voisins voient leur pondération d'origine incrémentée de 1.
 
-Par exemple, les messages d'un voisin direct \texttt{A} ont une pondération de $1$, alors que les messages de \texttt{B}, voisin direct de \textsf{A} en ont une de $2$. Dans le cas où \texttt{B} est à la fois un voisin direct de \textsf{A} et du n\oe ud courant, la pondération la plus petite est conservée, soit $0$.
+Par exemple, les messages d'un voisin direct \texttt{A} ont une pondération de 1, alors que les messages de \texttt{B}, voisin direct de \textsf{A} en ont une de 2. Dans le cas où \texttt{B} est à la fois un voisin direct de \textsf{A} et du n\oe ud courant, la pondération la plus petite est conservée, soit 0.
 
 \format{IDNOEUD/ANNONCEOFFRE/MSG,MSG,MSG,\ldots}
 
@@ -44,8 +44,9 @@ Par exemple, les messages d'un voisin direct \texttt{A} ont une pondération de 
 
 Un n\oe ud annonce en priorité ses propres abonnements. Dans une certaine limite, il annonce également les abonnements de ses voisins les plus proches.
 
-Les abonnements sont pondérés aux aussi par la distance au n\oe ud courant, en nombre de sauts. En effet, les abonnements du n\oe ud courant sont pondérés à $0$, tandis que ceux des voisins voient leur pondération d'origine incrémentée de $1$.
+Les abonnements sont pondérés aux aussi par la distance au n\oe ud courant, en nombre de sauts. En effet, les abonnements du n\oe ud courant sont pondérés à 0, tandis que ceux des voisins voient leur pondération d'origine incrémentée de 1.
 
 \format{IDNOEUD/ANNONCEABO/ABO,ABO,ABO,\ldots}
 
 \formatvar{ABO}{PONDERATION-IDNOEUD}
+
