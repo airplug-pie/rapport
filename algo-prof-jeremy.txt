@@ -1,0 +1,89 @@
+** Initialisation
+bd_abos <- creer_bd()
+bd_messages <- creer_bd()
+bd_flux <- creer_bd() // flux affiché à l'utilisateur
+bd_offres_msg <- creer_bd()
+bd_demandes_abo <- creer_bd()
+// deux timers pour gérer la fréquence d'annonce finement
+demarrer_timer_annonces_offres()
+demarrer_timer_annonces_demandes()
+// constantes
+DISTANCE_OFFRE_MAX <- à définir
+DISTANCE_DEMANDE_MAX <- à définir
+
+
+** Rédaction d'un message M
+auteur <- utilisateur()
+date <- date_courante()
+id_msg <- bd_messages.ajouter(auteur, date, M)
+bd_flux.ajouter(id_msg)
+bd_offres_msg.ajouter(id_msg, auteur, 0)
+ihm.rafraichir()
+
+
+** Abonnement à un utilisateur U
+bd_abos.ajouter(U)
+bd_demandes_abo.ajouter(U, 0)
+
+
+** Timer des annonces d'offres déclenché
+bd_offres_msg.nettoyer() // suppr. offres obsolètes
+offres <- bd_offres_msg.liste()
+envoyer([annonce-offres] offres) aux voisins
+
+
+** Timer des annonces de demandes déclenché
+bd_demandes_abo.nettoyer() // suppr. demandes obsolètes
+demandes <- bd_demandes_abo.liste()
+envoyer([annonce-demandes] demandes) aux voisins
+
+
+** Réception d'une annonce d'offres
+recevoir([annonce-offres] offres) de Sj
+bd_offres_msg.mise_a_jour(offres)
+pour o <- offres faire
+	si bd_abos.contient(o.auteur) alors
+		si o.distance <= DISTANCE_OFFRE_MAX
+			et non bd_messages.contient(o.id_msg)
+		alors
+			envoyer([demande] o.id_msg) à Sj
+		finsi
+	finsi
+finfaire
+
+
+** Réception d'une annonce de demandes
+recevoir([annonce-demandes] demandes) de Sj
+bd_demandes_abo.mise_a_jour(demandes)
+pour d <- demandes faire
+	si bd_messages.contient(d.id_msg) alors
+		(auteur, date, msg) <- bd_messages.valeur(d.id_msg)
+		envoyer([message] d.id_msg, auteur, date, msg) à Sj
+	finsi
+finfaire
+
+
+** Réception d'une demande de message
+recevoir([demande] id_msg) de Sj
+si bd_offres.contient(id_msg) alors
+	o <- bd_offres.valeur(id_msg)
+	si o.distance = 0 alors
+		(auteur, date, msg) <- bd_messages.valeur(d.id_msg)
+		envoyer([message] id_msg, auteur, date, msg) à Sj
+	sinon
+		envoyer([demande] id_msg) à o.noeud
+finsi
+
+
+** Réception d'un message
+recevoir([message] id_msg, auteur, date, message)
+si non bd_messages.contient(id_msg) alors
+	noeud <- utilisateur()
+	bd_messages.ajouter(id_msg, auteur, date, message)
+	bd_offres_msg.ajouter(id_msg, noeud, 0)
+	si bd_abos.contient(auteur) alors
+		bd_flux.ajouter(id_msg)
+		ihm.rafraichir()
+	finsi
+finsi
+
