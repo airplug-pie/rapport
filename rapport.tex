@@ -1,8 +1,11 @@
 \documentclass[a4paper,oneside,12pt]{article}
 
 \usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
 \usepackage[french]{babel}
 \usepackage{hyperref}
+\usepackage{listings}
+\usepackage{listingsutf8}
 
 \input{alias}
 \input{commands}
@@ -14,17 +17,37 @@
 \author{\chrisb, \julien, \chrisr,\\\joe, \jeremy}
 
 \hypersetup{
-	bookmarks=true,
 	pdftitle={\customtitle},
 	pdfauthor={\chrisb, \julien, \chrisr, \joe, \jeremy},
 	pdfsubject={\customsubject}
 }
+
+\lstdefinelanguage{algorithme}
+{keywords={si,alors,finsi,sinon,envoyer,recevoir},
+otherkeywords={<-},
+comment=[l]//,
+morecomment=[l][\bfseries]**
+}
+\lstset{language=algorithme,
+frame=single,
+numbers=left,
+tabsize=2,
+stepnumber=2,
+extendedchars=true,
+numberstyle=\tiny,
+basicstyle=\small,
+extendedchars=true,
+inputencoding=utf8/latin1}
+
+
 
 
 \begin{document}
 
 \maketitle
 
+\input{algo}
 \input{draft}
 
 \end{document}
+

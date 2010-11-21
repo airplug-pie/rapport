@@ -1,0 +1,40 @@
+** Initialisation
+bd_abos <- creer_bd()
+bd_messages <- creer_bd()
+bd_offres_abo <- creer_bd()
+bd_demandes_abo <- creer_bd()
+demarrer_timer_heartbeat()
+
+** Heartbeat déclenché
+bd_offres_abo.nettoyer()		// suppr. vieilles offres
+bd_demandes_abo.nettoyer()	// suppr. vieilles demandes
+offres <- bd_offres_abo.liste()
+demandes <- bd_demandes_abo.liste()
+envoyer([heartbeat] offres, demandes)
+
+** Réception message heartbeat
+recevoir([heartbeat] offres, demandes)
+bd_offres_abo.mise_a_jour(offres)
+bd_demandes_abo.mise_a_jour(demandes)
+
+** Rédaction message par l'utilisateur
+TTL <- à définir
+TTS <- à définir
+date <- date_courante()
+envoyer([PIE] auteur, date, message, TTL, TTS)
+
+** Réception message PIE
+recevoir([PIE] auteur, date, message, TTL, TTS)
+si bd_abos.contient(auteur) alors
+	bd_messages.ajouter(auteur, date, message)
+	// affichage du message à l'utilisateur
+finsi
+si bd_demandes_abo.voisins_interesses(auteur) alors
+	TTS <- TTS - 1
+sinon
+	TTL <- TTL - 1
+finsi
+si TTL > 0 et TTS > 0 alors
+	envoyer([PIE] auteur, date, message, TTL, TTS)
+finsi
+
