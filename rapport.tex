@@ -10,17 +10,16 @@
 \input{alias}
 \input{commands}
 
-\newcommand{\customtitle}{Projet SR05 -- Réalisation d'une application répartie sur la plateforme \airplug}
-\newcommand{\customsubject}{\pie}
-
-\title{\customtitle}
+\title{Projet SR05 -- Réalisation d'une application répartie sur la plateforme \airplug}
 \author{\chrisb, \julien, \chrisr,\\\joe, \jeremy}
 
+\makeatletter
 \hypersetup{
-	pdftitle={\customtitle},
+	pdftitle={\@title},
 	pdfauthor={\chrisb, \julien, \chrisr, \joe, \jeremy},
-	pdfsubject={\customsubject}
+	pdfsubject={\pie}
 }
+\makeatother
 
 \lstdefinelanguage{algorithme}
 {keywords={si,alors,finsi,sinon,pour,faire,finfaire,et,ou,non,envoyer,recevoir},
