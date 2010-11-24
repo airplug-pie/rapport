@@ -1,43 +1,87 @@
 ** Initialisation
+
 bd_abos <- creer_bd()
-// bd_messages <- creer_bd() On ne garde plus un historique des messages non ?
 bd_offres_abo <- creer_bd()
 bd_demandes_abo <- creer_bd()
+bd_flux <- creer_bd() // flux affiché à l'utilisateur
 demarrer_timer_heartbeat()
-TTL <- à définir //Time To Live. Nombre de saut possible parmi des voitures n'ayant aucun voisin intéressé par l'abonnement
-TTS <- à définir //Time To Survive. Nombre de saut possible parmi des voitures ayant un voisin intéressé par l'abonnement
+
+
+** Abonnement à un utilisateur U
+
+bd_abos.ajouter(U)
+
+// La demande a la priorité la plus haute
+bd_demandes_abo.ajouter(U, 0)
+
 
 ** Heartbeat déclenché
-bd_offres_abo.nettoyer()	// supprimer les vieilles offres
-bd_demandes_abo.nettoyer()	// supprimer les vieilles demandes
-offres <- bd_offres_abo.liste() + bd_offres_abo.aleatoire() // Récupération d'une liste des offres les plus importantes + une offre aléatoire
-demandes <- bd_demandes_abo.liste() + bd_demandes_abo.aleatoire() // de même avec les demandes d'abonnements
+
+bd_offres_abo.nettoyer()		// suppr. des offres obsolètes
+bd_demandes_abo.nettoyer()	// suppr. des demandes obsolètes
+
+// Récupération d'une liste des offres les plus importantes
+// + des offres choisies aléatoirement pour compléter
+offres <- bd_offres_abo.liste_heartbeat()
+
+// De même avec les demandes d'abonnements
+demandes <- bd_demandes_abo.liste_heartbeat()
+
 envoyer([heartbeat] offres, demandes)
 
-** Réception message heartbeat
+
+** Réception du message heartbeat
+
 recevoir([heartbeat] offres, demandes)
-bd_offres_abo.mise_a_jour(offres) // On met à jour les priorités des offres
-bd_demandes_abo.mise_a_jour(demandes) // de même avec les demandes.
 
-** Rédaction message par l'utilisateur
+// Mise à jour des priorités
+bd_offres_abo.mise_a_jour(offres)
+bd_demandes_abo.mise_a_jour(demandes)
+
+
+** Rédaction d'un message par l'utilisateur
+
+auteur <- nom_utilisateur()
 date <- date_courante()
-envoyer([PIE] auteur, date, message, TTL, TTS)
+msg <- message_redige()
+id_msg <- creer_message(auteur, date, msg)
 
-** Réception message PIE
-recevoir([PIE] auteur, date, message, TTL_msg, TTS_msg)
-si bd_abos.contient(auteur) alors
-	bd_messages.ajouter(auteur, date, message)
-	// affichage du message à l'utilisateur
+bd_flux.ajouter(id_msg, auteur, date, msg)
+ihm.rafraichir()
+
+// Time To Live
+// Nombre de sauts possibles parmi des voitures
+// n'ayant aucun voisin intéressé par l'abonnement
+TTL <- à définir
+
+// Time To Survive
+// Nombre de sauts possibles parmi des voitures
+// ayant un voisin intéressé par l'abonnement
+TTS <- à définir 
+
+envoyer([PIE] id_msg, auteur, date, msg, TTL, TTS)
+
+
+** Réception d'un message PIE
+
+recevoir([PIE] id_msg, auteur, date, msg, TTL, TTS)
+
+si bd_abos.contient(auteur)
+		et non bd_flux.contient(id_msg)
+alors
+	bd_flux.ajouter(id_msg, auteur, date, msg)
+	ihm.rafraichir()
 finsi
-si bd_demandes_abo.voisins_interesses(auteur) et  alors
-	TTS_msg <- TTS_msg - 1
-	si TTS_msg > 0 alors
-		envoyer([PIE] auteur, date, message, TTL_msg, TTS_msg)
+
+si bd_demandes_abo.voisins_interesses(auteur) alors
+	TTS <- TTS - 1
+	si TTS > 0 alors
+		envoyer([PIE] auteur, date, msg, TTL, TTS)
 	finsi
 sinon
-	TTL_msg <- TTL_msg - 1
-	si TTL_msg > 0 alors
-		envoyer([PIE] auteur, date, message, TTL, TTS)
+	TTL <- TTL - 1
+	si TTL > 0 alors
+		envoyer([PIE] auteur, date, msg, TTL, TTS)
 	finsi
 finsi
 
