@@ -2,5 +2,93 @@
 
 \section{Protocole}
 
-TODO Jérémy
+La définition du protocole de l'application \pie{} passe par la description des identifiants utilisés dans le système, ainsi que de celle du format des messages qui s'échangent dans le réseau.
+
+
+\subsection{Identifiants}
+
+Pour des raisons pratiques, un certain nombre d'objets de notre système doivent être identifiés.
+
+
+\paragraph{Le n\oe ud}
+
+Son identifiant est celui qui a été fourni à \airplug{} lors de son lancement.
+
+\format{\fvnodeid}
+
+
+\paragraph{La publication}
+
+Son identifiant est défini par un \hash{}, calculé à partir de la date de sa rédaction et de l'identifiant du n\oe ud auteur.
+
+\format{\fvmsgid}
+
+
+\subsection{Formats de messages}
+
+Les messages de l'application \pie{} sont composés :
+\begin{enumerate}
+	\item d'un entête ;
+	\item d'un payload, dont le format varie selon le type de message.
+\end{enumerate}
+
+
+\subsubsection{Entête}
+
+Un entête commun a été défini pour tous les messages envoyés par l'application \pie.
+Ses champs sont les suivants :
+
+\begin{description}
+	\item[\fkfrom] désigne l'émetteur d'origine du message. Ce champ n'est pas modifié en cas de relais du message par un n\oe ud voisin.
+	\item[\fknick] désigne le pseudo de l'émetteur d'origine du message. Ce champ n'est pas non plus modifié en cas de relais.
+	\item[\fkttl] correspond au nombre de sauts possibles parmi les n\oe uds n'ayant pas de voisin intéressé par le message.
+	\item[\fktts] correspond au nombre de sauts possibles parmi les n\oe uds ayant un voisin intéressé par le message.
+	\item[\fktype] indique le type du message, impliquant un certain format de \payload. Ce champ peut prendre les valeurs suivantes :
+		\begin{itemize}
+			\item \texttt{\msgheartbeat{} = 0}
+			\item \texttt{\msgpie{} = 1}
+		\end{itemize}
+\end{description}
+
+\format{\ffrom \apgdelim \fnick \apgdelim \fttl \apgdelim \ftts \apgdelim \\ \ftype \apgdelim \fvpayload}
+
+
+\subsubsection{\Payload : message \msgheartbeat}
+
+Le \msgheartbeat{} correspond à une annonce des offres et des demandes du n\oe ud lui-même ou de ses voisins, directs ou non.
+
+Le \payload{} du message contient donc à la fois une liste d'offres et une liste de demandes.
+Une entrée de ces listes comprend un identifiant de n\oe ud et une pondération associée.
+
+Du fait de la taille limitée des messages \airplug, toutes les offres et demandes disponibles ne peuvent pas être annoncées via le message \msgheartbeat.
+Ainsi, les entrées doivent être sélectionnées :
+
+\begin{enumerate}
+	\item les entrées correspondant aux n\oe ud sont choisies en priorité ;
+	\item les entrées les plus importantes sont sélectionnées ;
+	\item enfin, s'il reste de la place, on choisit aléatoirement des entrées pour compléter.
+\end{enumerate}
+
+Par ailleurs, les messages \msgheartbeat{} sont utilisés par un \oe ud pour connaitre ses voisins.
+En effet, il suffit de récolter le contenu des champs \fkfrom{} et \fknick{} de leurs entêtes.
+
+\format{\foffers \apgdelim \fdemands}
+
+\formatvar{\fvoffers}{\\\fvnodeid-\fvpriority,\fvnodeid-\fvpriority,\ldots}
+
+\formatvar{\fvdemands}{\\\fvnodeid-\fvpriority,\fvnodeid-\fvpriority,\ldots}
+
+
+\subsubsection{\Payload : message \msgpie}
+
+Le message \msgpie{} correspond à l'envoi d'une publication d'un utilisateur.
+Il contient alors les champs suivants :
+
+\begin{description}
+	\item[\fkmsgid] identifie la publication de façon unique. Il permet entre autres de savoir si un même message a été reçu plusieurs fois.
+	\item[\fkmsgdate] correspond à la date de la rédaction de la publication.
+	\item[\fkmsgcontent] correspond au contenu de la publication.
+\end{description}
+
+\format{\fmsgid \apgdelim \fmsgdate \apgdelim \fmsgcontent}
 
