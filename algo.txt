@@ -16,10 +16,9 @@ bd_demandes_abo.ajouter(U, 0)
 
 
 ** Heartbeat déclenché
-// suppression des offres obsolètes + pondération
-bd_offres_abo.nettoyer()	
 
-// suppression des demandes obsolètes + pondération
+// suppression des entrées obsolètes + pondération
+bd_offres_abo.nettoyer()	
 bd_demandes_abo.nettoyer()	
 
 // Récupération d'une liste des offres les plus importantes
