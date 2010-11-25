@@ -33,15 +33,15 @@ Le TTS (Time To Survive) va être décrémenté par chaque voiture retransmettan
 Un seul de ces deux compteurs peut être décrémenté. Le message n'est pas retransmis si le compteur devant être décrémenté est à 0. Ce mode de retransmission permet une diffusion intelligente. En effet, le message peut être diffusé inutilement dans un rayon égal au TTL. Cependant, il pourra s'étendre d'avantage dans les zones où un destinataire est présent grâce au TTS. Le schéma ci-dessous montre ce principe.
 
 \begin{center}
-	\includegraphics[width=0.75\textwidth]{img/schema}
+	\includegraphics[width=0.75\textwidth]{img/schema2}
 \end{center}
 
 \paragraph*{}
 \begin{description}
-	\item[Noeud jaune :] Noeud émetteur du message PIE.
-	\item[Noeud bleu :] Noeud non abonné et non intéressé par le message.
-	\item[Noeud vert :] Noeud non abonné, mais connaissant un noeud intéressé par celui-ci.
-	\item[Noeud rouge :] Noeud abonné à l'émetteur désirant donc recevoir le message.
+	\item[Voiture jaune :] Noeud émetteur du message PIE.
+	\item[Voiture bleue :] Noeud non abonné et non intéressé par le message.
+	\item[Voiture verte :] Noeud non abonné, mais connaissant un noeud intéressé par celui-ci.
+	\item[Voiture rouge :] Noeud abonné à l'émetteur désirant donc recevoir le message.
 	\item[Ellipse bleu :] Zone de diffusion du message par décrémentation du TTL.
 	\item[Ellipse rouge :] Zone de diffusion du message par décrémentation du TTS.
 \end{description}
