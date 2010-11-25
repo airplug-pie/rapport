@@ -55,7 +55,7 @@ Ses champs sont les suivants :
 
 \subsubsection{\Payload : message \msgheartbeat}
 
-Le \msgheartbeat{} correspond à une annonce des offres et des demandes du n\oe ud lui-même ou de ses voisins, directs ou non.
+Le \heartbeat{} correspond à une annonce des offres et des demandes du n\oe ud lui-même ou de ses voisins, directs ou non.
 
 Le \payload{} du message contient donc à la fois une liste d'offres et une liste de demandes.
 Une entrée de ces listes comprend un identifiant de n\oe ud et une pondération associée.
@@ -69,7 +69,7 @@ Ainsi, les entrées doivent être sélectionnées :
 	\item enfin, s'il reste de la place, on choisit aléatoirement des entrées pour compléter.
 \end{enumerate}
 
-Par ailleurs, les messages \msgheartbeat{} sont utilisés par un \oe ud pour connaitre ses voisins.
+Par ailleurs, les messages \msgheartbeat{} sont utilisés par un n\oe ud pour connaitre ses voisins.
 En effet, il suffit de récolter le contenu des champs \fkfrom{} et \fknick{} de leurs entêtes.
 
 \format{\foffers \apgdelim \fdemands}
