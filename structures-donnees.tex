@@ -2,5 +2,29 @@
 
 \section{Structures de données}
 
-TODO Joe: présentation rapide des 5 structures
+La structure de donnée de \pie\ doit permettre de suivre les différents états des flux. Pour cela, nous utilisons plusieurs listes :
+\begin{description}
+	\item[Forwarded] correspond à la liste des flux par lesquels un de nos voisins est intéressé.
+	\item[Subscribed] liste l'ensemble des flux auxquels nous sommes abonnés.
+	\item[Available] correspond à un ensemble global des deux listes précédentes étant donné qu'il regroupe tous les flux que l'on a pu avoir à disposition.
+\end{description}
+% Christophe : je n'ai pas mis 'Forgotten' parce que cette liste n'a pas selon moi raison d'être, et donc je ne vois pas comment justifier sa présence.
+
+\paragraph*{}
+D'un point de vue implémentation, ces listes vont contenir des références vers des objets stream qui contiendront les informations utiles d'un flux. Ainsi, un même flux peut-être à la fois disponible, retransmis, et suivi, et nous n'aurons qu'une seul instance d'objet.
+
+\paragraph*{}
+Un objet de type stream contient les informations suivantes :
+\begin{description}
+	\item[stream\_id] : Identifiant unique du flux.
+	\item[car\_id] : Identifiant unique de la voiture émettrice du flux.
+	\item[user] : Objet User possédant les informations de l'utilisateur émetteur du flux.
+	\item[time\_available] : Date à laquelle le flux est devenu disponible.
+	\item[time\_lastmsg] : Date à laquelle le dernier message du flux a été reçu.
+	\item[time\_lasthello] : Date du dernier, \hbeat contenant le flux.
+	\item[nb\_msg] : Nombre de messages reçus.
+	\item[distance] : Distance en nombre de saut, de la voiture émettrice.
+	\item[priority] : Priorité du flux.
+\end{description}
+
 
