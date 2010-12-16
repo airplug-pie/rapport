@@ -8,11 +8,12 @@
 \subsubsection{Initialisation}
 Lors du démarrage de l'application, la base de données est reconstruite. Celle-ci comporte trois stockages, plus une vue :
 \begin{description}
-	\item[bd\_abos] contient l'ensemble des identifiants de n\oe uds, et pseudos d'utilisateurs auxquels le n\oe ud courant est abonné.
-	\item[bd\_offres\_abo] contient l'ensemble des identifiants de n\oe uds, ainsi que la distance des abonnements offerts à portée. Cette liste comporte des priorités, permettant de détruire les abonnements passagers dus à un simple croisement avec un véhicule.
-	\item[bd\_demandes\_abo] a un fonctionnement identique à la base d'offres. Cependant, elle intègre une partie des abonnements désirés par les voisins.
-	\item[bd\_flux] correspond à une vue des publications issues du n\oe ud courant et de ses abonnés. Elle correspond au flux qui sera visualisé par l'utilisateur final.
+	\item[\texttt{bd\_abos}] contient l'ensemble des identifiants de n\oe uds, et pseudos d'utilisateurs auxquels le n\oe ud courant est abonné.
+	\item[\texttt{bd\_offres\_abo}] contient l'ensemble des identifiants de n\oe uds, ainsi que la distance des abonnements offerts à portée. Cette liste comporte des priorités, permettant de détruire les abonnements passagers dus à un simple croisement avec un véhicule.
+	\item[\texttt{bd\_demandes\_abo}] a un fonctionnement identique à la base d'offres. Cependant, elle intègre une partie des abonnements désirés par les voisins.
+	\item[\texttt{bd\_flux}] correspond à une vue des publications issues du n\oe ud courant et de ses abonnés. Elle correspond au flux qui sera visualisé par l'utilisateur final.
 \end{description}
+
 \paragraph*{}
 Un timer est ensuite enclenché afin d'effectuer à intervalle régulier un \msgheartbeat.
 
@@ -38,13 +39,14 @@ Un seul de ces deux compteurs peut être décrémenté. Le message n'est pas ret
 
 \paragraph*{}
 \begin{description}
-	\item[Voiture jaune :] N\oe ud émetteur du message PIE.
-	\item[Voiture bleue :] N\oe ud non abonné et non intéressé par le message.
-	\item[Voiture verte :] N\oe ud non abonné, mais connaissant un n\oe ud intéressé par celui-ci.
-	\item[Voiture rouge :] N\oe ud abonné à l'émetteur désirant donc recevoir le message.
-	\item[Ellipse bleue :] Zone de diffusion du message par décrémentation du \fkttl.
-	\item[Ellipse rouge :] Zone de diffusion du message par décrémentation du \fktts.
+	\item[Voiture jaune :] n\oe ud émetteur du message \pie ;
+	\item[Voiture bleue :] n\oe ud non abonné et non intéressé par le message ;
+	\item[Voiture verte :] n\oe ud non abonné, mais connaissant un n\oe ud intéressé par celui-ci ;
+	\item[Voiture rouge :] n\oe ud abonné à l'émetteur désirant donc recevoir le message ;
+	\item[Ellipse bleue :] zone de diffusion du message par décrémentation du \fkttl ;
+	\item[Ellipse rouge :] zone de diffusion du message par décrémentation du \fktts.
 \end{description}
+
 \paragraph*{}
 Nous remarquons que contrairement à une diffusion par distance qui aurait un format de cercle, l'utilisation du \fkttl\ et \fktts\ permet une diffusion ayant une forme variable. Dans le cas d'un convoi de véhicules, avec un véhicule égaré, cela va par exemple permettre de continuer à faire communiquer les deux protagonistes le plus longtemps possible.
 
