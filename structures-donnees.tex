@@ -2,33 +2,32 @@
 
 \section{Structures de données}
 
-La structure de donnée de \pie\ doit permettre de suivre les différents états des flux. Pour cela, nous utilisons plusieurs listes :
+La structure de données de \pie\ doit permettre de suivre les différents états des flux. Pour cela, nous utilisons plusieurs listes :
 \begin{description}
-	\item[Forwarded] correspond à la liste des flux par lesquels un de nos voisins est intéressé.
-	\item[Subscribed] liste l'ensemble des flux auxquels nous sommes abonnés.
-	\item[Available] correspond à un ensemble global des deux listes précédentes étant donné qu'il regroupe tous les flux que l'on a pu avoir à disposition.
-	\item[Forgotten] stockera chaque flux qui seront devenus trop anciens pour être marqués disponibles pour l'utilisateur.
+	\item[Forwarded] correspond à la liste des flux par lesquels un de nos voisins est intéressé ;
+	\item[Subscribed] liste l'ensemble des flux auxquels nous sommes abonnés ;
+	\item[Available] correspond à un ensemble global des deux listes précédentes étant donné qu'il regroupe tous les flux que l'on a pu avoir à disposition ;
+	\item[Forgotten] stockera chaque flux qui sera devenu trop ancien pour être marqué disponible pour l'utilisateur.
 \end{description}
 
 \paragraph*{}
-D'un point de vue implémentation, ces listes vont contenir des références vers des objets stream qui contiendront les informations utiles d'un flux. Ainsi, un même flux peut-être à la fois disponible, retransmis, et suivi, et nous n'aurons qu'une seul instance d'objet.
+D'un point de vue implémentation, ces listes vont contenir des références vers des objets \texttt{stream} qui contiendront les informations utiles d'un flux. Ainsi, un même flux peut-être à la fois disponible, retransmis et suivi, et nous n'aurons qu'une seule instance d'objet.
 
 \paragraph*{}
-Un objet de type stream contient les informations suivantes :
+Un objet de type \texttt{stream} contient les informations suivantes :
 \begin{description}
-	\item[stream\_id] : Identifiant unique du flux.
-	\item[car\_id] : Identifiant unique de la voiture émettrice du flux.
-	\item[user] : Objet User possédant les informations de l'utilisateur émetteur du flux.
-	\item[time\_available] : Date à laquelle le flux est devenu disponible.
-	\item[time\_lastmsg] : Date à laquelle le dernier message du flux a été reçu.
-	\item[time\_lasthello] : Date du dernier, \heartbeat contenant le flux.
-	\item[nb\_msg] : Nombre de messages reçus.
-	\item[distance] : Distance en nombre de saut, de la voiture émettrice.
-	\item[priority] : Priorité du flux.
+	\item[\texttt{stream\_id}] : identifiant unique du flux ;
+	\item[\texttt{car\_id}] : identifiant unique de la voiture émettrice du flux ;
+	\item[\texttt{user}] : objet \texttt{User} possédant les informations de l'utilisateur émetteur du flux ;
+	\item[\texttt{time\_available}] : date à laquelle le flux est devenu disponible ;
+	\item[\texttt{time\_lastmsg}] : Date à laquelle le dernier message du flux a été reçu.
+	\item[\texttt{time\_lasthello}] : date du dernier \heartbeat contenant le flux ;
+	\item[\texttt{nb\_msg}] : nombre de messages reçus ;
+	\item[\texttt{distance}] : distance en nombre de sauts de la voiture émettrice ;
+	\item[\texttt{priority}] : priorité du flux.
 \end{description}
 
 \paragraph*{}
 Ainsi, chaque flux est lié à un utilisateur qui est stocké sous la forme d'un objet. 
-Cet objet pourra être etendu, mais contient pour le moment des informations primordiales telles que son âge, son sexe, son nom complet, son numéro de téléphone, son email, et surtout sa destination.
-
+Cet objet pourra être étendu, mais contient pour le moment des informations primordiales telles que son âge, son sexe, son nom complet, son numéro de téléphone, son e-mail, et surtout sa destination.
 
