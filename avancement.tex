@@ -1,0 +1,36 @@
+%mainfile: rapport.tex
+
+\section{Bilan de l'avancement}
+
+\paragraph{}
+
+Les fonctionnalités actuellement offertes par notre application \pie{} sont les suivantes :
+
+\begin{enumerate}
+	\item l'utilisateur peut poster une publication \pie{} à travers le réseau ;
+	\item il peut s'abonner aux flux de ses voisins ;
+	\item il reçoit les publications des personnes auxquelles il est abonné, dans la mesure où les publications arrivent jusqu'à lui ;
+	\item un prototype d'interface graphique complet est fourni (\cfsection{ihm}) ;
+	\item plusieurs utilisateurs peuvent être gérés simultanément à travers plusieurs instances de \pie ;
+	\item une configuration des préférences l'utilisateur est sauvée dans son répertoire personnel\footnote{\texttt{\$HOME/.pie/}}.
+\end{enumerate}
+
+
+\paragraph{}
+
+D'un point de vue plus technique, les aspects suivants sont implémentés :
+
+\begin{enumerate}
+	\item le messages \pie{} et le \heartbeat{} sont gérés ;
+	\item une librairie permettant de stocker les différents flux utiles au bon fonctionnement de \pie{} a été développée (\cfsection{storage}) ;
+	\item un prototype de gestion d'identification unique de véhicule reposant sur le \vin{} est proposé (\cfsection{vin}).
+\end{enumerate}
+
+
+\paragraph{}
+
+Toutefois, notre partie réalisation n'est pas encore terminée à la date de rédaction de ce rapport.
+Nous n'avons donc pas pu déployer l'application de façon satisfaisante, de manière à effectuer de vrais tests pour valider ou critiquer les choix de notre algorithme réparti.
+
+Nous avons également réfléchi à des extensions pour notre projet (\cfsection{evolutions}), qui seront éventuellement présentées lors de notre soutenance si le temps nous le permet.
+
