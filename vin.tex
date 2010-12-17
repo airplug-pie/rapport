@@ -7,8 +7,8 @@ En marge de l'implémentation des algorithmes de \pie, nous nous sommes interrog
 
 Pour s'assurer du bon fonctionnement de l'algorithme, il faut qu'il y ait unicité de l'identifiant des émetteurs/récepteurs. En effet, comment acheminer des messages vers le bon destinataire si deux identifiants identiques existent?  \\
 
-La gestion des identifiants est donc cruciale, car en cas de manque de robustesse dans le choix de ceux-ci, il y des risques avérés de dysfonctionnement.
-Réaliser un système de création d'identifiant centralisé serait contraire à la philosophie de fonctionnement de \pie, à savoir décentralisé les échanges de messages.
+La gestion des identifiants est donc cruciale, car en cas de manque de robustesse dans le choix de ceux-ci, il y a des risques avérés de dysfonctionnement.
+Réaliser un système de création d'identifiant centralisé serait contraire à la philosophie de fonctionnement de \pie, à savoir décentraliser les échanges de messages.
 
 De plus, s'appuyer sur le pseudonyme des utilisateurs n'est pas suffisant : deux utilisateurs peuvent avoir le même pseudonyme. Comme nous ne pouvons pas imposer une unicité des pseudonymes d'utilisateur, nous avons donc utilisé le couple d'information identifiant du véhicule / pseudonyme afin de caractérisé le flux et l'utilisateur associé (\cfsection{storage}).
 
