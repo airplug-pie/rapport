@@ -1,0 +1,21 @@
+digraph g {
+	graph [ rankdir = "TB" ];
+	node [ fontsize = "16" shape = "ellipse" ];
+		"Storage"    [ shape = "record" ];
+		"n1" [ label = "List | Available" shape = "record" ];
+		"n2" [ label = "List | Subscribed" shape = "record" ];
+		"n3" [ label = "List | Forwarded"  shape = "record" ];
+		"ns1" [ label = "Stream x | user x" shape = "record" ];
+		"ns2" [ label = "Stream y | user y" shape = "record" ];
+		"ns3" [ label = "Stream z | user z"  shape = "record" ];
+		"Storage" -> "n1" [ id = 0 ];
+		"Storage" -> "n2" [ id = 0 ];
+		"Storage" -> "n3" [ id = 0 ];
+		"n1" -> "ns1" [ id = 0 ];
+		"n1" -> "ns2" [ id = 0 ];
+		"n1" -> "ns3" [ id = 0 ];
+		"n2" -> "ns1" [ id = 0 ];
+		"n2" -> "ns3" [ id = 0 ];
+		"n3" -> "ns2" [ id = 0 ];
+}
+

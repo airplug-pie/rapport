@@ -1,0 +1,18 @@
+digraph s {
+	rankdir = "LR";
+	node [style="solid,filled" fontsize="15" fontname="Sans" ];
+	node [shape = doublecircle ]; "Available";
+	node [shape = circle];
+	"Available" -> "Available\nForwarded";
+	"Available" -> "Available\nSubscribed";
+	"Available\nForwarded" -> "Available";
+	"Available\nSubscribed" -> "Available";
+	"Available\nForwarded" -> "Forgotten";
+	"Available\nSubscribed" -> "Forgotten";
+	"Available" -> "Forgotten" [label = "Indisponible"];
+	"Forgotten" -> "Available" [label = "Disponible"];	
+	"Available\nForwarded" -> "Available\nSubscribed\nForwarded";
+	"Available\nSubscribed" -> "Available\nSubscribed\nForwarded";
+	"Available\nSubscribed\nForwarded" -> "Available\nSubscribed";
+	"Available\nSubscribed\nForwarded" -> "Available\nForwarded";	
+}
