@@ -16,14 +16,14 @@ En plus de celles précitées, un flux est un objet constitué d'un ensemble de 
 Ces caractéristiques sont d'une part les informations liées à la notion d'identité de utilisateur
 associé au flux, de l'autre celles liés - au même titre que l'état - à sa gestion. \\
 
-Les informations caractérisant un utilisateur associé à un flux ne sont pas par défaut
-transmises par celui-ci sur le réseau (à l'exception du couple NICK/FROM), lorsque 
-l'utilisateur local de PIE en fait la demande, une requête unidirectionnelle (de type getinfo)
+Les informations caractérisant un utilisateur associé à un flux ne sont pas - par défaut -
+transmises par celui-ci (à l'exception du couple NICK/FROM), lorsque 
+l'utilisateur local de PIE en fait la demande, une requête unidirectionnelle (de type \textbf{getinfo})
 peut alors être adressée au flux en question; si une réponse de sa part est reçu alors
 les informations le concernant sont mises à jour. \\
 
-Du fait de leur unicité, les flux constitue un ensemble, une collection d'objet unique (\cfsection{vin}).
-L'état défini un relation entre un flux et l'utilisateur local de l'application, un flux
+Du fait de leur unicité, les flux constituent un ensemble, une collection d'objets unique (\cfsection{vin}).
+L'état définit un relation entre un flux et l'utilisateur local de l'application, un flux
 peut être : \\
 
 \begin{itemize}
@@ -36,11 +36,11 @@ Ces états possibles se superposent car un flux peut avoir les trois états simu
 l'état d'un flux est une caractéristique offrant les relations ensemblistes suivantes : \\
 
 \begin{itemize}
-	\item qql soit un flux x alors il appartient à available,
-	\item Subscribed est un sous ensemble d'Available,
-	\item forwarded est un sous ensemble d'Available,
-	\item Subscribed U Forwarded est inclus ou égale à Available,
-	\item L'intersection de Subscribed et Forwarded est éventuellement non vide.\\
+	\item qql soit un flux x alors il appartient à \textbf{available},
+	\item \textbf{subscribed} est un sous ensemble d'\textbf{available},
+	\item \textbf{forwarded} est un sous ensemble d'\textbf{available},
+	\item \textbf{subscribed} U \textbf{forwarded} est inclus ou égale à \textbf{available},
+	\item L'intersection de \textbf{subscribed} et \textbf{forwarded} est éventuellement non vide.\\
 \end{itemize}
 
 L'état d'un flux est une caractéristique de gestion, cette caractéristique est modélisée
@@ -54,12 +54,12 @@ par l'utilisation de trois listes : \\
 
 Un gestion unifiée de ces structures de données est offerte par un sous-système de PIE,
 l'interface de stockage. Cette interface permet la manipulation des flux, des informations 
-qui leur sont associé et de leurs états, c'est l'interface de plus haut niveau pour la
+qui leur sont associées et de leurs états, c'est l'interface de plus haut niveau pour la
 manipulation des flux. L'interface de stockage est une interface de gestion, automatisant
-les différentes taches inhérente à cette gestion, elle joui bien sur des aspects ensemblistes
-à travers l'utilisation des listes. \\
+les différentes taches inhérentes à cette gestion, elle met à profit les relations ensemblistes 
+exposées à travers l'utilisation de listes. \\
 
-Le schéma suivant présente les structures de données précitées et les interactions
+Le schéma suivant présente les structures de données précitées et les relations (logiques)
 entre chacunes :  \\
 
 \begin{center}
@@ -68,35 +68,35 @@ entre chacunes :  \\
 
 \subsection{Implémentation}
 
-Le modèle présenté dans le précèdent paragraphe à conduit à l'implémentation
-présenté maintenant. Chacun des objets considérés dans le modèle dispose d'une
-propre interface qui lui propre. Il y a quatre interfaces de gestion différentes,
+Le modèle présenté dans le précèdent paragraphe a conduit à l'implémentation
+présentée maintenant. Chacun des objets considérés dans le modèle dispose d'une
+interface qui lui propre. Il y a donc quatre interfaces de gestion différentes,
 celle-ci sont : \\
 
 \begin{itemize}
 	\item \textbf{user} : interface de gestion des utilisateurs associés aux flux,
-	\item \textbf{stream} : interface de gestion des  flux,
+	\item \textbf{stream} : interface de gestion des flux,
 	\item \textbf{list}:  interface de gestion des listes de flux,
 	\item \textbf{storage} : l'interface de stockage, plus haut niveau d'abstraction. \\
 \end{itemize}
 
 
 Chacune des interfaces précitées offre une couche d'abstraction permettant la manipulation
-des objets qu'elle modélise. Elles sont définies par deux niveaux, il y a d'une part des
+des objets qu'elle modélise. Elles sont définies par deux niveaux, il y a d'une part, des
 fonctions de manipulation globales des objets fournis par l'interface (telle que seraient
-des fonctions statiques d'une classe en java) et de l'autres des fonctions de manipulation
+des fonctions statiques d'une classe en java) et de l'autres ,des fonctions de manipulation
 des objets par eux mêmes (le pendant des méthodes en java). Les fonctions et méthodes des
 différentes interfaces permettent par exemple la recherche d'objets en fonction de la valeur
-de leur attributs autant que leur mise à jour ou leur destruction.
+de leur attributs autant que leur mise à jour ou encore leur destruction.
 
 \subsubsection{Interface User}
 
-Un utilisateur (\textbf{user}) est représenté comme par un objet disposant
+Un utilisateur (\textbf{user}) est représenté par un objet disposant
 d'un certain nombre de caractéristiques, celles ci sont : \\
 
 \begin{itemize}
-	\item \textbf{id} : information de gestion initialisé à la création,
-	\item \textbf{nickname}	: correspond au champ définit dans le protocol,
+	\item \textbf{id} : information de gestion initialisée à la création,
+	\item \textbf{nickname}	: correspond au champ \textbf{NICK} définit dans le protocol,
 	\item \textbf{email} : l'adresse email de l'utilisateur (optionnelle),
 	\item \textbf{fullname} : son nom (optionnelle),
 	\item \textbf{firstname} : son prénom (optionnelle),
@@ -109,22 +109,22 @@ d'un certain nombre de caractéristiques, celles ci sont : \\
 
 Les caractéristiques notées optionnelles sont celles n'ayant pas d'impact
 sur le fonctionnement de PIE en interne, elles n'ont pour objet que d'offrir
-un profil plus détaillé (informations obtenue par une requète getinfo).
+un profil plus détaillé (informations obtenues par une requête \textbf{getinfo}).
  
 \subsubsection{Interface Stream}
 
 Ces objets utilisateur, sont implémenté en utilisant le package Itcl qui offre
-une couche abstraction de type objet au langage TCL, ces objets sont contenus
-(associé) dans un object de type flux (\textbf{stream}). L'objet \textbf{steam}
+une couche abstraction de type objet au langage TCL, ils sont contenus
+(associés) dans un object de type flux (\textbf{stream}). L'objet \textbf{steam}
 est defini par les champs : \\
 
 \begin{itemize}
-	\item \textbf{stream\_id} : information de gestion initialisé à la création,
+	\item \textbf{stream\_id} : information de gestion initialisée à la création,
 	\item \textbf{car\_id} : information correspondant au champ FROM du protocol,
 	\item \textbf{time\_available} : l'heure locale depuis laquelle le flux est disponible,
 	\item \textbf{time\_lastmsg} : l'heure locale du dernier message reçu de ce flux,
-	\item \textbf{time\_lasthello} : l'heure locale du dernier message de type hello reçu ce flux,
-	\item \textbf{nb\_mesg} : le nombre de message envoyé par ce flux,
+	\item \textbf{time\_lasthello} : l'heure locale du dernier message de type hello,
+	\item \textbf{nb\_mesg} : le nombre de messages envoyés par ce flux,
 	\item \textbf{user} : l'objet utilisateur présenté dans le précédent paragraphe,
 	\item un certain nombre d'informations de gestion pour le protocol.
 \end{itemize}
@@ -133,13 +133,13 @@ est defini par les champs : \\
 
 Les listes bien que nativement présentent dans le langages TCL bénéficient également
 d'un interface particulière et écrite par nos soins. Cette interface permet un gestion
-cohérentes aux modèle ensembliste - unicité des éléments dans chaque liste.
+cohérente au modèle ensembliste - unicité des éléments dans chaque liste.
 
 \subsubsection{Interface Storage}
 
-Enfin l'interface de stockage est celle permettant la gestion de l'ensemble, c'est
-à travers cette interface que sont manipulés les objets du modèle. Le stockage 
-maintient 4 liste : \\
+Enfin l'interface de stockage est celle permettant la gestion de l'ensemble, c'est 
+celle présentant le plus haut niveau d'abstraction, c'est donc à travers cette interface
+que sont manipulés tous les objets du modèle. Le stockage maintient 4 liste : \\
 
 \begin{itemize}
 	\item la liste des flux \textbf{available}, soit l'ensemble des flux,
@@ -149,7 +149,7 @@ maintient 4 liste : \\
 \end{itemize}
 
 Lorsque un nouveau flux est crée cela correspond à la réception d'informations de sa part, l'objet
-associé a ce flux est alors initialisé. Il est crée à travers l'interface de stockage des flux et
+associé à ce flux est alors initialisé. Il est crée à travers l'interface de stockage des flux et
 bénéficie de l'état disponible (\textbf{available}); si l'utilisateur décide de s'y abonner alors
 le flux bénéficie également de cet état et à ce titre est mis dans la liste associée (\textbf{subscribed});
 enfin un flux pour lequel PIE est informé qu'il intéresse un paire sera mis dans la liste des flux
@@ -159,7 +159,7 @@ Lorsqu'un flux devient indisponible, plutôt que de détruire l'objet associé, 
 liste \textbf{forgotten}, il tombe dans les limbes; il s'agit d'un optimisation et d'un écart au modèle
 présenté; ne pas détruire ce flux permet de le rendre disponible de nouveau à l'utilisateur local et
 cela sans sur-coup au niveau des ressources locales. De plus, si d'aventure, des informations avaient
-au préalable été obtenues sur l'utilisateur associé au dit flux (via une requète de type getinfo) alors
+au préalable été obtenues sur l'utilisateur associé au dit flux (via une requête de type getinfo) alors
 il n'est pas nécessaire de les redemander ensuite ce qui évite de saturer le média de communication. \\
 
 L'évolution des états d'un flux peut être repésenté par le schéma suivants
@@ -168,6 +168,6 @@ L'évolution des états d'un flux peut être repésenté par le schéma suivants
     \includegraphics[width=1\textwidth]{img/state.png}
 \end{center}
 
-Les listes ne contient en fait que des références vers les objets, c'est le rôle de l'interface de
+Les listes ne contiennent en fait que des références vers les objets, c'est le rôle de l'interface de
 stockage de garantir les propriétés précédemment exposées. \\
 
